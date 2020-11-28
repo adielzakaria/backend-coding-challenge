@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>programming languages trends</title>
+</head>
+
+<body>
+   <h1>the most starred projects on github that were created since: {{created_since}}</h1>
+   <ul>
+      {{#with languages as items }}
+      {{#each items}}
+         {{#with this as item}
+      <p>{{@key}}: number of repositories {{numberOfRepositories}}</p>
+         <li>
+            <ul>
+               {{#with repositories}}
+               {{#each repositories }}
+                  <li>
+                     {{this}}
+                  </li>
+               {{/each}}
+               {{/with}}
+            </ul>
+         </li>
+         {{/with}}
+      {{/each}}
+      {{/with}}
+   </ul>
+</body>
+
+</html>
