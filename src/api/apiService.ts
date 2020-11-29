@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
+import { compareRepositories } from 'src/helpers/comparer';
 import { fetchFromApi } from 'src/helpers/dataFetcher';
 import { __30DaysAgoDate } from 'src/helpers/date';
 import { Language } from '../helpers/language';
@@ -11,7 +12,7 @@ export class ApiService {
         const result = await fetchFromApi('https://api.github.com', `/search/repositories?q=created:>${dateString}&sort=stars&order=desc&per_page=100`)
         return {
             //use items property only
-            "languages":this.cleanData(result.items),
+            "languages":this.sortBynumberOfRepositoriesDesc(this.cleanData(result.items)),
             "created_since": dateString
         }
     }
@@ -34,5 +35,9 @@ export class ApiService {
 
             });
         return map
+    }
+    sortBynumberOfRepositoriesDesc(map: { [s: string]: any; } | ArrayLike<any>)
+    {
+        return Object.fromEntries(Object.entries(map).sort((a,b) => compareRepositories(b, a,'numberOfRepositories')))   
     }
 }
