@@ -17,21 +17,23 @@ I tried to use mvc architecture for extensibility and maintainability
 
 ## source folder structure
 
--src
- --api
+```bash
+|--src
+  |--api
    ---apiController.ts
    ---apiModule.ts
    ---apiService.ts
- --client
+  |--client
    ---clientController.ts
    ---clientModule.ts
    ---cientService.ts
- --helpers
+  |--helpers
    ---comparer.ts
    ---dataFetcher.ts
    ---date.ts
    ---language.ts
- --views
+  |--views
    ---index.hbs
- --appModule.ts
- --main.ts
+  ---appModule.ts
+  ---main.ts
+```
