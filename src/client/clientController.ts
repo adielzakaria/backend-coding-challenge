@@ -8,7 +8,7 @@ export class ClientController {
 
   @Get()
   @Render('index')
-  async getHello() {
-    return await this.clientService.gettrend() 
+   async getTrends() {
+    return await this.clientService.getTrend() 
   }
 }
