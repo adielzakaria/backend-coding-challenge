@@ -11,8 +11,8 @@ I tried to use mvc architecture for extensibility and maintainability
 
 ## Mapped routes
 
-*{/api/all, GET} : returns a json containing the languages of the 100 most starred repositories from github api since 30 days ago sorted by the total number of repositories
-*{,GET} : the home view
+* {/api/all, GET} : returns a json containing the languages of the 100 most starred repositories from github api since 30 days ago sorted by the total number of repositories
+* {,GET} : the home view
 
 ## technlogies used
 
