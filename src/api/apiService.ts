@@ -38,6 +38,11 @@ export class ApiService {
     }
     sortBynumberOfRepositoriesDesc(map: { [s: string]: any; } | ArrayLike<any>)
     {
-        return Object.fromEntries(Object.entries(map).sort((a,b) => compareRepositories(b, a,'numberOfRepositories')))   
+        
+        return Object.entries(map).sort((a,b) => compareRepositories(b, a,'numberOfRepositories')).reduce((acc, cur, i) =>{
+            cur[1]['rank']=i+1
+            acc[cur[0]] =cur[1]
+            return acc;
+          }, {});   
     }
 }
