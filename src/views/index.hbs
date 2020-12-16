@@ -1,33 +1,54 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>programming languages trends</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
    <h1>the most starred projects on github that were created since: {{created_since}}</h1>
-   <ul>
-      {{#with languages as | items | }}
-      {{#each items}}
-         {{#with this as | item | }}
-      <p>{{@key}}: number of repositories {{numberOfRepositories}}</p>
-         <li>
-            <ul>
-               {{#with repositories as | repos |}}
-               {{#each repos }}
-                  <li>
-                     <a href="{{this}}">{{this}}</a>
-                  </li>
-               {{/each}}
-               {{/with}}
-            </ul>
-         </li>
-         {{/with}}
-      {{/each}}
-      {{/with}}
-   </ul>
+   <div class="table-responsive">
+    <table class="table">
+      <thead>
+       <tr>
+         <th>rank</th>
+         <th>language</th>
+         <th>number of repositories</th>
+         <th>repositories</th>
+       </tr>
+       
+      </thead>
+      <tbody>
+         {{#with languages as | items | }}
+            {{#each items}}
+                     <tr>
+                        {{#with this as | item | }}
+                           <td>{{rank}}</td>
+                           <td>{{@key}}</td>
+                           <td>{{numberOfRepositories}}</td>
+                           {{#with repositories as | repos |}}
+                              <td>
+                                 <ul>
+                                       {{#each repos }}
+                                        <li><a href="{{this}}">{{this}}</a></li>
+                                       {{/each}}
+                                 </ul>
+                              </td>
+                           {{/with}}     
+                        {{/with}}            
+                     </tr>
+            {{/each}}
+         {{/with}}    
+                  
+         
+   </tbody>
+   </table> 
+   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
