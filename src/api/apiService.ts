@@ -12,34 +12,28 @@ export class ApiService {
         const result = await fetchFromApi('https://api.github.com', `/search/repositories?q=created:>${dateString}&sort=stars&order=desc&per_page=100`)
         return {
             //use items property only
-            "languages":this.sortBynumberOfRepositoriesDesc(this.cleanData(result.items)),
+            "languages":this.sortBynumberOfRepositoriesDesc(result.items),
             "created_since": dateString
         }
     }
     //create objects from items array ,assembles all repositories under one key and leave only needed details 
-    cleanData(items: { [x: string]: string; }[])
+    cleanData(repositories)
     {
-        const map = {}
-        items.forEach((item: { [x: string]: string; }) => {
-                if (map.hasOwnProperty(item["language"])) {
-                    map[item["language"]]?.addRepository(item["html_url"]);
-
-                } else {
-                    //the language attribute is null when the repo contains no code, so we have to exclude them altho they might have a lot of stars  
-                    if (item["language"]) {
-                        const rep = new Language();
-                        rep?.addRepository(item["html_url"]);
-                        map[item['language']] = rep;
-                    }
-                }
-
-            });
-        return map
+        //maps each language with all repositories that uses it 
+        return repositories.filter(repository => repository['language']).reduce((acc,cur,i)=>
+        {
+            const rep = acc[cur['language']] ?? new Language()
+            rep?.addRepository(cur["html_url"])
+            acc[cur['language']]=rep
+            return acc;
+        }
+        , {})
+       
     }
-    sortBynumberOfRepositoriesDesc(map: { [s: string]: any; } | ArrayLike<any>)
+    sortBynumberOfRepositoriesDesc(repositories)
     {
-        
-        return Object.entries(map).sort((a,b) => compareRepositories(b, a,'numberOfRepositories')).reduce((acc, cur, i) =>{
+        const languages=this.cleanData(repositories)
+        return Object.entries(languages).sort((a,b) => compareRepositories(b, a,'numberOfRepositories')).reduce((acc, cur, i) =>{
             cur[1]['rank']=i+1
             acc[cur[0]] =cur[1]
             return acc;
