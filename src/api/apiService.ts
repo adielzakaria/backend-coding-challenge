@@ -20,7 +20,7 @@ export class ApiService {
     cleanData(repositories)
     {
         //maps each language with all repositories that uses it 
-        return repositories.filter(repository => repository['language']).reduce((acc,cur,i)=>
+        return repositories.filter(repository => repository['language']).reduce((acc,cur)=>
         {
             const rep = acc[cur['language']] ?? new Language()
             rep?.addRepository(cur["html_url"])
