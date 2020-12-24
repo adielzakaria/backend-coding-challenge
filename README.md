@@ -12,7 +12,7 @@ I tried to use mvc architecture for extensibility and maintainability
 ## Mapped routes
 
 * {/api/trends, GET} : returns a json containing the languages of the 100 most starred repositories from github api since 30 days ago sorted by the total number of repositories
-   it accepts 2 parameters sort & order
+   .it accepts 2 parameters sort & order
 * {,GET} : the home view
 
 ## params
