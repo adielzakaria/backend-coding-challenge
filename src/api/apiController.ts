@@ -4,7 +4,7 @@ import { ApiService } from './ApiService';
 export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
-  @Get('all')
+  @Get('trends')
   async getall(): Promise<any> {
     return await this.apiService.getAll();
   }
