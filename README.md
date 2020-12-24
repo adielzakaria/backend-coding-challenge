@@ -11,8 +11,14 @@ I tried to use mvc architecture for extensibility and maintainability
 
 ## Mapped routes
 
-* {/api/all, GET} : returns a json containing the languages of the 100 most starred repositories from github api since 30 days ago sorted by the total number of repositories
+* {/api/trends, GET} : returns a json containing the languages of the 100 most starred repositories from github api since 30 days ago sorted by the total number of repositories
+   it accepts 2 parameters sort & order
 * {,GET} : the home view
+
+## params
+
+* sort accepts 2 values : 'stars' and 'repositories' default: repositories
+* order accepts 2 values : 'asc' and 'desc' default : desc
 
 ## technlogies used
 
@@ -33,7 +39,6 @@ I tried to use mvc architecture for extensibility and maintainability
    ---clientModule.ts
    ---cientService.ts
   |--helpers
-   ---comparer.ts
    ---dataFetcher.ts
    ---date.ts
    ---language.ts
