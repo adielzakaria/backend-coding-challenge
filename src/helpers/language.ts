@@ -1,18 +1,18 @@
 export class Language {
-  repositories: Array<string>
-  numberOfRepositories: number
+  repositories: Array<string>;
+  numberOfRepositories: number;
   constructor() {
-    this.repositories = new Array<string>()
+    this.repositories = new Array<string>();
   }
 
   addRepository(repository: string) {
-    this.repositories.push(repository)
-    this.numberOfRepositories = this.repositories.length
+    this.repositories.push(repository);
+    this.numberOfRepositories = this.repositories.length;
   }
   getNumberOfRepositories(): number {
-    return this.repositories.length
+    return this.repositories.length;
   }
   getRepositories() {
-    return this.repositories
+    return this.repositories;
   }
 }
