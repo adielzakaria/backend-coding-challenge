@@ -7,12 +7,12 @@ import { Language } from '../helpers/language';
 @Injectable()
 export class ApiService {
 
-    async getall() {
+    async getAll() {
         const dateString = __30DaysAgoDate()
         const result = await fetchFromApi('https://api.github.com', `/search/repositories?q=created:>${dateString}&sort=stars&order=desc&per_page=100`)
         return {
             //use items property only
-            "languages":this.sortBynumberOfRepositoriesDesc(result.items),
+            "languages":this.sortByNumberOfRepositoriesDesc(result.items),
             "created_since": dateString
         }
     }
@@ -30,13 +30,13 @@ export class ApiService {
         , {})
        
     }
-    sortBynumberOfRepositoriesDesc(repositories)
+    sortByNumberOfRepositoriesDesc(repositories)
     {
-        const languages=this.cleanData(repositories)
+        const languages = this.cleanData(repositories)
         return Object.entries(languages).sort((a,b) => compareRepositories(b, a,'numberOfRepositories')).reduce((acc, cur, i) =>{
             cur[1]['rank']=i+1
             acc[cur[0]] =cur[1]
             return acc;
-          }, {});   
+          }, {});  
     }
 }
