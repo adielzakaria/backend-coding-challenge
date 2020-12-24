@@ -1,8 +1,10 @@
 export class Language {
   repositories: Array<string>;
   numberOfRepositories: number;
+  accumulatedStars: number;
   constructor() {
     this.repositories = new Array<string>();
+    this.accumulatedStars = 0;
   }
 
   addRepository(repository: string) {
@@ -14,5 +16,11 @@ export class Language {
   }
   getRepositories() {
     return this.repositories;
+  }
+  addStars(stars: number) {
+    this.accumulatedStars += stars;
+  }
+  getAccumulatedStars() {
+    return this.accumulatedStars;
   }
 }
