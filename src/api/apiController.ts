@@ -1,11 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiService } from './ApiService';
 @Controller('api')
 export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
   @Get('trends')
-  async getall(): Promise<any> {
-    return await this.apiService.getAll();
+  async getall(
+    @Query('sort') key?: 'stars' | 'repositories',
+    @Query('order') order?: 'asc' | 'desc',
+  ): Promise<any> {
+    key ??= 'repositories';
+    order ??= 'desc';
+    return await this.apiService.getAll(key, order);
   }
 }
