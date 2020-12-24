@@ -23,20 +23,37 @@ export class ApiService {
     return repositories
       .filter((repository) => repository['language'])
       .reduce((acc, cur) => {
-        const rep = acc[cur['language']] ?? new Language();
-        rep?.addRepository(cur['html_url']);
-        acc[cur['language']] = rep;
+        const lang = acc[cur['language']] ?? new Language();
+        lang.addRepository(cur['html_url']);
+        lang.addStars(cur['stargazers_count']);
+        acc[cur['language']] = lang;
         return acc;
       }, {});
   }
+  checkParams(key, order) {
+    if (!(key in ['stars', 'repositories']) || !(order in ['asc', 'desc'])) {
+      throw new Error('illegal argument');
+    }
+  }
+  sort(repositories, key, order) {
+    const keys = key == 'repositories' ? 'numberOfRepositories' : 'accumulatedStars';
+    const ord = order == 'desc' ? 'b[1],a[1]' : 'a[1],b[1]';
+    const languages = this.cleanData(repositories);
+    const functionBody = `return this.reduce(Object.entries(languages).sort((a,b)=>compareRepositories(${ord},${keys}))`;
+  }
   sortByNumberOfRepositoriesDesc(repositories) {
     const languages = this.cleanData(repositories);
-    return Object.entries(languages)
-      .sort((a, b) => compareRepositories(b, a, 'numberOfRepositories'))
-      .reduce((acc, cur, i) => {
-        cur[1]['rank'] = i + 1;
-        acc[cur[0]] = cur[1];
-        return acc;
-      }, {});
+    return this.reduce(
+      Object.entries(languages).sort((a, b) =>
+        compareRepositories(b[1], a[1], 'numberOfRepositories'),
+      ),
+    );
+  }
+  reduce(repositories) {
+    return repositories.reduce((acc, cur, i) => {
+      cur[1]['rank'] = i + 1;
+      acc[cur[0]] = cur[1];
+      return acc;
+    }, {});
   }
 }
