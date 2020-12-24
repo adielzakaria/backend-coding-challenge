@@ -1,10 +1,9 @@
-/* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common';
-import { ApiModule } from './api/apiModule';
-import {ClientModule} from './client/clientModule'
+import { Module } from '@nestjs/common'
+import { ApiModule } from './api/apiModule'
+import { ClientModule } from './client/clientModule'
 
 @Module({
-  imports: [ApiModule,ClientModule],
+  imports: [ApiModule, ClientModule],
   controllers: [],
   providers: [],
 })
