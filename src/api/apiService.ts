@@ -12,7 +12,7 @@ export class ApiService {
     );
     return {
       languages: this.processData(result.items, key, order),
-      created_since: dateString,
+      createdSince: dateString,
     };
   }
   //create objects from items array ,assembles all repositories under one key and leave only needed details
@@ -43,10 +43,14 @@ export class ApiService {
     return this.reduce(sort(languages));
   }
   reduce(repositories) {
-    return repositories.reduce((acc, cur, i) => {
-      cur[1]['rank'] = i + 1;
-      acc[cur[0]] = cur[1];
-      return acc;
-    }, {});
+    return repositories.reduce(
+      (acc, cur, i) => {
+        cur[1]['rank'] = i + 1;
+        acc[cur[0]] = cur[1];
+        acc['totalNumberOfRepositories'] += cur[1]['numberOfRepositories'];
+        return acc;
+      },
+      { totalNumberOfRepositories: 0 },
+    );
   }
 }
