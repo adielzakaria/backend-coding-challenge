@@ -20,12 +20,12 @@ export class ApiService {
     //maps each language with all repositories that uses it
     return repositories
       .filter((repository) => repository['language'])
-      .reduce((acc, cur) => {
-        const lang = acc[cur['language']] ?? new Language();
-        lang.addRepository(cur['html_url']);
-        lang.addStars(cur['stargazers_count']);
-        acc[cur['language']] = lang;
-        return acc;
+      .reduce((accumulator, current) => {
+        const lang = accumulator[current['language']] ?? new Language();
+        lang.addRepository(current['html_url']);
+        lang.addStars(current['stargazers_count']);
+        accumulator[current['language']] = lang;
+        return accumulator;
       }, {});
   }
 
@@ -44,11 +44,12 @@ export class ApiService {
   }
   reduce(repositories) {
     return repositories.reduce(
-      (acc, cur, i) => {
-        cur[1]['rank'] = i + 1;
-        acc[cur[0]] = cur[1];
-        acc['totalNumberOfRepositories'] += cur[1]['numberOfRepositories'];
-        return acc;
+      (accumulator, current, index) => {
+        current[1]['rank'] = index + 1;
+        accumulator[current[0]] = current[1];
+        accumulator['totalNumberOfRepositories'] +=
+          current[1]['numberOfRepositories'];
+        return accumulator;
       },
       { totalNumberOfRepositories: 0 },
     );
