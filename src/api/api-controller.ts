@@ -5,12 +5,12 @@ export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
   @Get('trends')
-  async getall(
+  async getTrendingLanguages(
     @Query('sort') key?: 'stars' | 'repositories',
     @Query('order') order?: 'asc' | 'desc',
   ): Promise<any> {
     key ??= 'repositories';
     order ??= 'desc';
-    return await this.apiService.getAll(key, order);
+    return await this.apiService.getTrendingLanguages(key, order);
   }
 }

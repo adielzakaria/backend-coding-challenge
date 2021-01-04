@@ -4,7 +4,7 @@ import { _30DaysAgoDate } from 'src/helpers/date';
 import { Language } from '../helpers/language';
 @Injectable()
 export class ApiService {
-  async getAll(key: string, order: string) {
+  async getTrendingLanguages(key: string, order: string) {
     const dateString = _30DaysAgoDate();
     const result = await fetchFromApi(
       'https://api.github.com',
