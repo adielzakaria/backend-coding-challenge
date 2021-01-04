@@ -5,7 +5,7 @@ I tried to use mvc architecture for extensibility and maintainability
 
 ## completed features
 
-* api that fetch 100 most starred repositories from github api since 30 days ago , assemble repos that use the same language , sort them by number of repositories to find the trendings  
+* api that fetch 100 most starred repositories from github api since 30 days ago , assemble repos that use the same language , sort them to find the trendings  
 * view that illustrates the data fetched
 * no security features were implemented except the use of helmet
 
