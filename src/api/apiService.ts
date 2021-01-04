@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { fetchFromApi } from 'src/helpers/dataFetcher';
-import { __30DaysAgoDate } from 'src/helpers/date';
+import { _30DaysAgoDate } from 'src/helpers/date';
 import { Language } from '../helpers/language';
 @Injectable()
 export class ApiService {
-  async getAll(key, order) {
-    const dateString = __30DaysAgoDate();
+  async getAll(key: string, order: string) {
+    const dateString = _30DaysAgoDate();
     const result = await fetchFromApi(
       'https://api.github.com',
       `/search/repositories?q=created:>${dateString}&sort=stars&order=desc&per_page=100`,
