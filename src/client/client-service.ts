@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { fetchFromApi } from '../helpers/dataFetcher';
-import { server } from '../helpers/server';
+import { fetchFromApi, server } from '../helpers';
 @Injectable()
 export class ClientService {
   async getTrend() {

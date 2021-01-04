@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { fetchFromApi } from 'src/helpers/dataFetcher';
-import { _30DaysAgoDate } from 'src/helpers/date';
-import { Language } from '../helpers/language';
+import {
+  fetchFromApi,
+  Language,
+  _30DaysAgoDate,
+  compareObjectsByKey,
+} from 'src/helpers/index';
+
 @Injectable()
 export class ApiService {
   async getTrendingLanguages(key: string, order: string) {
@@ -32,15 +36,14 @@ export class ApiService {
   processData(repositories, key, order) {
     const keys =
       key == 'repositories' ? `'numberOfRepositories'` : `'accumulatedStars'`;
-    const ord = order == 'desc' ? 'b[1],a[1]' : 'a[1],b[1]';
     const languages = this.cleanGithubData(repositories);
-    const sortBody = `
-    function compareObjectsByKey(object1, object2, key) {
-  return object1[key] > object2[key] ? 1 : object1[key] < object2[key] ? -1 : 0;
-}   
-    return Object.entries(languages).sort((a,b)=>compareObjectsByKey(${ord},${keys}))`;
-    const sort = new Function('languages', sortBody);
-    return this.reduce(sort(languages));
+    return this.reduce(
+      Object.entries(languages).sort((a, b) =>
+        order == 'desc'
+          ? compareObjectsByKey(b[1], a[1], keys)
+          : compareObjectsByKey(a[1], b[1], keys),
+      ),
+    );
   }
   reduce(repositories) {
     return repositories.reduce(
