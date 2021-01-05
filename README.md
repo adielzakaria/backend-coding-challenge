@@ -39,10 +39,14 @@ I tried to use mvc architecture for extensibility and maintainability
    ---clientModule.ts
    ---cientService.ts
   |--helpers
+   ---comparer.ts
    ---dataFetcher.ts
    ---date.ts
-   ---language.ts
+   ---index.ts
    ---server.ts
+  |--language
+   ---language-model.ts
+   ---language.ts
   |--views
    ---index.hbs
   ---appModule.ts
