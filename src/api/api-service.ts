@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { _30DaysAgoDate } from 'src/helpers/index';
+import { _30DaysAgoDate } from 'src/helpers';
 import { LanguageModel } from 'src/language/language-model';
 @Injectable()
 export class ApiService {
@@ -16,5 +16,4 @@ export class ApiService {
       createdSince: dateString,
     };
   }
-  //create objects from items array ,assembles all repositories under one key and leave only needed details
 }
